@@ -1,0 +1,48 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+env:
+  PNPM_VERSION: 9.7.0
+
+jobs:
+  release:
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+      repository-projects: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Request GitHub token
+        id: get_workflow_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.OTA_RELEASE_APP_ID }}
+          private-key: ${{ secrets.OTA_RELEASE_APP_PRIVATE_KEY }}
+      - name: Create release pull-request of publish
+        uses: changesets/action@v1
+        id: changesets
+        env:
+          GITHUB_TOKEN: ${{ steps.get_workflow_token.outputs.token }} # using non github token to trigger CI
+        with:
+          publish: pnpm run publish
+          version: pnpm run version
+        

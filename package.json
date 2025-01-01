@@ -7,6 +7,7 @@
     "setup": "docker compose up -d",
     "build:hyperpixel2r": "docker exec piimage-build build hyperpixel2r --download",
     "new-changeset": "changeset",
+    "publish": "changeset publish",
     "version": "changeset version"
   },
   "keywords": [],
