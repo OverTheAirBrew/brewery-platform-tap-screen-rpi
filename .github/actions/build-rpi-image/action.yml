@@ -20,7 +20,6 @@ runs:
     - uses: actions/setup-node@v3
       with:
         node-version-file: .nvmrc
-        cache: pnpm
     - name: get-npm-version
       id: package-version
       uses: martinbeentjes/npm-get-version-action@v1.3.1
