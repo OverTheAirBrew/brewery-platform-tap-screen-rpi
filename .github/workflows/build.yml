@@ -19,22 +19,13 @@ jobs:
     steps:
       - name: Checkout Project Repository
         uses: actions/checkout@v4
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
-      - name: Generate Image Name
-        id: image
-        run: echo "NAME=OverTheAirBrew-TapScreen-${{ matrix.variant }}-${{ steps.package-version.outputs.current-version }}" >> $GITHUB_OUTPUT
-      # - uses: hoverkraft-tech/compose-action@v2.0.2
-      - name: Setup docker
-        env:
-          BASE_RELEASE_IMG_NAME: OverTheAirBrew-TapScreen-${{ matrix.variant }}-${{ steps.package-version.outputs.current-version }}
-        run: |
-          npm run setup
-      - name: Build image
-        run: | 
-          npm run build:${{ matrix.variant }}
-      - uses: actions/upload-artifact@v4
+      - name: Build Image
+        uses: ./.github/actions/build-rpi-image
+        id: build-image
         with:
-          name: ${{ steps.image.outputs.NAME }}
-          path: ./pi-image/src/workspace-${{ matrix.variant }}/${{ steps.image.outputs.NAME }}.zip
+          VARIANT: ${{ matrix.variant }}
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'pull_request'
+        with:
+          name: ${{ steps.build-image.outputs.IMAGE_NAME }}
+          path: ./src/workspace-${{ matrix.variant }}/${{ steps.build-image.outputs.IMAGE_NAME }}.zip
