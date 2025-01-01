@@ -8,9 +8,6 @@ concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: false
 
-env:
-  PNPM_VERSION: 9.7.0
-
 jobs:
   release:
     permissions:
@@ -25,7 +22,7 @@ jobs:
           fetch-depth: 0
       - uses: pnpm/action-setup@v2
         with:
-          version: ${{ env.PNPM_VERSION }}
+          version: 9.7.0
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc

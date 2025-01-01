@@ -1,5 +1,5 @@
 {
-  "name": "@overtheairbrew/pi-image",
+  "name": "@overtheairbrew/brewery-platform-tap-screen-rpi",
   "version": "0.0.0",
   "main": "index.js",
   "private": true,
