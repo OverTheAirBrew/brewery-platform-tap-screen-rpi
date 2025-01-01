@@ -2,7 +2,7 @@
 	"name": "Node.js & TypeScript",
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm",
 	"forwardPorts": [],
-	"postCreateCommand": "npm run setup",
+	"postCreateCommand": "pnpm run setup && pnpm install",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -11,6 +11,7 @@
 			]
 		}
 	},
+	
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
 	}

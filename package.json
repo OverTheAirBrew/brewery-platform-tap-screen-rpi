@@ -1,14 +1,19 @@
 {
   "name": "@overtheairbrew/pi-image",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "index.js",
   "private": true,
   "scripts": {
     "setup": "docker compose up -d",
-    "build:hyperpixel2r": "docker exec piimage-build build hyperpixel2r --download"
+    "build:hyperpixel2r": "docker exec piimage-build build hyperpixel2r --download",
+    "new-changeset": "changeset",
+    "version": "changeset version"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.11"
+  }
 }
