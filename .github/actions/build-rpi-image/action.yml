@@ -14,6 +14,13 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 9.7.0
+    - uses: actions/setup-node@v3
+      with:
+        node-version-file: .nvmrc
+        cache: pnpm
     - name: get-npm-version
       id: package-version
       uses: martinbeentjes/npm-get-version-action@v1.3.1
@@ -27,8 +34,8 @@ runs:
       env:
         BASE_RELEASE_IMG_NAME: OverTheAirBrew-TapScreen-${{ matrix.variant }}-${{ steps.package-version.outputs.current-version }}
       run: |
-        npm run setup
+        pnpm run setup
     - name: Build image
       shell: bash
       run: | 
-        npm run build:${{ matrix.variant }}
+        pnpm run build:${{ matrix.variant }}
