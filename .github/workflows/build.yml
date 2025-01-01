@@ -1,0 +1,40 @@
+name: Build Image
+
+on: 
+  pull_request:
+    types: 
+      - opened
+      - synchronize
+  push: 
+    branches: 
+      - main
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        variant:
+          - hyperpixel2r
+    steps:
+      - name: Checkout Project Repository
+        uses: actions/checkout@v4
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+      - name: Generate Image Name
+        id: image
+        run: echo "NAME=OverTheAirBrew-TapScreen-${{ matrix.variant }}-${{ steps.package-version.outputs.current-version }}" >> $GITHUB_OUTPUT
+      # - uses: hoverkraft-tech/compose-action@v2.0.2
+      - name: Setup docker
+        env:
+          BASE_RELEASE_IMG_NAME: OverTheAirBrew-TapScreen-${{ matrix.variant }}-${{ steps.package-version.outputs.current-version }}
+        run: |
+          npm run setup
+      - name: Build image
+        run: | 
+          npm run build:${{ matrix.variant }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.image.outputs.NAME }}
+          path: ./pi-image/src/workspace-${{ matrix.variant }}/${{ steps.image.outputs.NAME }}.zip
