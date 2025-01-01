@@ -13,7 +13,7 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.event == 'pull_request' }} // non PR workflows should block each other
+  cancel-in-progress: ${{ github.event == 'pull_request' }}
     
 jobs:
   build:
