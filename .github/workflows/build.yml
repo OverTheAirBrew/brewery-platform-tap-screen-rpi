@@ -38,7 +38,7 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    if: github.event != 'pull_request'
+    if: github.event_name != 'pull_request'
     needs:
       - build
     permissions:
@@ -58,7 +58,6 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@v1.3.1
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
-        if: github.event_name != 'pull_request'
         with:
           repo_token: ${{ steps.get_workflow_token.outputs.token }}
           file: ${{ steps.download.outputs.download-path }}/*
