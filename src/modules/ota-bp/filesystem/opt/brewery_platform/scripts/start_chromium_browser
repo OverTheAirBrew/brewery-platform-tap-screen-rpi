@@ -10,9 +10,9 @@ flags=(
    --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'
    --disable-component-update
    --overscroll-history-navigation=0
-   --disable-features=TranslateUI
+   --disable-features=TranslateUI,ImprovedCookieControls,ImprovedCookieControlsForThirdPartyCookieBlocking,SameSiteByDefaultCookies,CookiesWithoutSameSiteMustBeSecure
    --autoplay-policy=no-user-gesture-required
-   --user-data-dir=/home/${BASE_USER}/chrome
+   --user-data-dir=/home/pi/chrome
 )
 
 # Standard behavior - runs chromium
