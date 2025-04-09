@@ -1,0 +1,10 @@
+workspace
+workspace-*
+
+image
+image-*
+
+node_modules
+.pnpm-store
+
+build.log

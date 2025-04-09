@@ -1,0 +1,20 @@
+{
+  "name": "@overtheairbrew/brewery-platform-tap-screen-rpi",
+  "version": "0.0.0",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "setup": "docker compose up -d",
+    "build:hyperpixel2r": "docker exec piimage-build build hyperpixel2r --download",
+    "new-changeset": "changeset",
+    "publish": "changeset publish",
+    "version": "changeset version"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.11"
+  }
+}
